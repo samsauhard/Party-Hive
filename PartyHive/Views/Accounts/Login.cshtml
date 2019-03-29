@@ -1,0 +1,57 @@
+﻿@model PartyHive.Models.Account.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+
+
+<div class="container text-center">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-5">
+            <img class="rounded d-block" style="margin:10rem auto 0 auto" src="~/images/logo.png" alt="" width="160" height="160"><br />
+            <h2 class="text-center">Please sign in</h2>
+            <br />
+
+            @if (!ViewData.ModelState.IsValid && ViewData.ModelState["LoginError"].Errors.Any())
+            {
+                <div class="alert alert-danger text-center w-50 m-auto " role="alert">
+                    <strong>Error!</strong>@ViewData.ModelState["LoginError"].Errors.First().ErrorMessage
+                </div>
+            }
+            <div class="">
+                <form asp-action="Login" class="form-signin">
+                    <div class="form-group text-center">
+                        <input type="radio" asp-for="UserType" value="Host" /> Host
+                        <input type="radio" asp-for="UserType" value="Customer" /> Customer<br />
+                        <span asp-validation-for="UserType " class="text-danger"></span>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <input asp-for="Email" type="email" class="form-control" placeholder="Email address" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" asp-for="Password" class="form-control" placeholder="Password" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
+                        <button type="reset" class="btn btn-primary btn-lg btn-block">Reset</button>
+                    </div>
+                </form>
+                <div class="text-center">
+                    @Html.ActionLink("Haven't sign-in yet?", "Register", "Accounts")
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
